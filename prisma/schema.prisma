@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+enum PropertyStatus {
+  Available
+  Booked
+}
+
+enum LeadStatus {
+  New
+  Contacted
+  Visited
+  Booked
+  Lost
+}
+
+enum LeadPriority {
+  Hot
+  Warm
+  Cold
+}
+
+enum UserRole {
+  Admin
+  Agent
+}
+
+model Property {
+  id        Int            @id @default(autoincrement())
+  title     String
+  address   String
+  city      String
+  price     Decimal        @db.Decimal(12, 2)
+  bedrooms  Int
+  status    PropertyStatus @default(Available)
+  createdAt DateTime       @default(now()) @map("created_at")
+
+  leads Lead[]
+
+  @@index([city])
+  @@index([status])
+  @@index([bedrooms])
+  @@map("properties")
+}
+
+model Lead {
+  id         Int          @id @default(autoincrement())
+  buyerName  String       @map("buyer_name")
+  phone      String
+  email      String
+  propertyId Int          @map("property_id")
+  status     LeadStatus   @default(New)
+  priority   LeadPriority
+  notes      String?
+  createdAt  DateTime     @default(now()) @map("created_at")
+  updatedAt  DateTime     @updatedAt @map("updated_at")
+
+  property Property @relation(fields: [propertyId], references: [id], onDelete: Restrict)
+
+  @@unique([phone, propertyId])
+  @@index([status])
+  @@index([priority])
+  @@index([propertyId])
+  @@map("leads")
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  role         UserRole
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@map("users")
+}
