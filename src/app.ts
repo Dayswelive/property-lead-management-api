@@ -1,8 +1,10 @@
 import express from "express";
 import authRoutes from "./modules/auth/auth.routes";
 import { errorHandler } from "./middlewares/error.middleware";
+//routes
 import { authMiddleware } from "./middlewares/auth.middleware";
 import propertiesRoutes from "./modules/properties/properties.routes";
+import leadsRoutes from "./modules/leads/leads.routes";
 
 const app = express();
 
@@ -14,9 +16,10 @@ app.get("/health", (_req, res) => {
 
 app.use("/auth", authRoutes);
 app.use(authMiddleware);
+//protected routes
 app.use("/properties", propertiesRoutes);
+app.use("/leads", leadsRoutes);
 
-// error handler LAST
 app.use(errorHandler);
 
 export default app;
