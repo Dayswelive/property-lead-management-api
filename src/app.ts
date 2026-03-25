@@ -5,6 +5,7 @@ import { errorHandler } from "./middlewares/error.middleware";
 import { authMiddleware } from "./middlewares/auth.middleware";
 import propertiesRoutes from "./modules/properties/properties.routes";
 import leadsRoutes from "./modules/leads/leads.routes";
+import dashboardRoutes from "./modules/dashboard/dashboard.routes";
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(authMiddleware);
 //protected routes
 app.use("/properties", propertiesRoutes);
 app.use("/leads", leadsRoutes);
+app.use("/dashboard", dashboardRoutes);
 
 app.use(errorHandler);
 
