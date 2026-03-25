@@ -122,9 +122,25 @@ Authorization: Bearer <token>
 
 ---
 
-## 📌 API Endpoints
+## API Collection
 
----
+A Postman collection is included in the repository for easy local testing:
+
+- `docs/property-lead-management.postman_collection.json`
+
+Import this file into Postman and run the requests locally after starting the server.
+
+For protected routes, first call:
+
+- `POST /auth/login`
+
+using the seeded admin credentials to obtain a fresh JWT token.
+
+Example -
+{
+"email": "admin@example.com",
+"password": "password123"
+}
 
 ### 🧪 Health
 
@@ -338,17 +354,6 @@ You can use:
 
 ---
 
-## 🚀 Future Improvements
-
-- Swagger API documentation
-- Role-based access control
-- Pagination metadata
-- Soft deletes
-- Docker setup
-- Separate test database
-
----
-
 ## 👨‍💻 Author
 
-Built as part of backend engineering assignment.
+Suryansh Dev - Built as part of backend engineering assignment.
