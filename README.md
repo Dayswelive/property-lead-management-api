@@ -344,6 +344,20 @@ You can use:
 
 ---
 
+## API Collection
+
+A Postman collection is included in the repository for easy local testing:
+
+- `docs/property-lead-management.postman_collection.json`
+
+Import this file into Postman and run the requests locally after starting the server.
+
+For protected routes, first call:
+
+- `POST /auth/login`
+
+using the seeded admin credentials to obtain a fresh JWT token.
+
 ## 🧠 Design Decisions
 
 - Clean architecture (controller → service → DB)
